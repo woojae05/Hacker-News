@@ -18,13 +18,13 @@ export class Store implements NewsStore {
   }
 
   get nextPage(): number {
-    return this._currentPage + 1;
+    return this._currentPage < 3 ? this.currentPage + 1 : 3;
   }
 
   get prevPage(): number {
     return this._currentPage > 1 ? this._currentPage - 1 : 1;
   }
-  
+
   get numberOfFeed() {
     return this.feeds.length;
   }
@@ -43,7 +43,7 @@ export class Store implements NewsStore {
 
   setFeeds = (feeds: NewsFeed[]) => {
     this.feeds = feeds.map(feed => ({
-      ...feed, 
+      ...feed,
       read: false
     }));
   }
