@@ -1,6 +1,6 @@
 import View from '../core/view';
 import { NewsDetailApi } from '../core/api';
-import { NewsComment, NewsDetail, NewsStore } from '../types';
+import { NewsComment, NewsStore } from '../types';
 
 const template = `
 <div class="bg-gray-600 min-h-screen pb-8">
@@ -8,7 +8,7 @@ const template = `
     <div class="mx-auto px-4">
       <div class="flex justify-between items-center py-6">
         <div class="flex justify-start">
-          <h1 class="font-extrabold">Hacker News</h1>
+          <h1 class="font-extrabold">Woojae News</h1>
         </div>
         <div class="items-center justify-end">
           <a href="#/page/{{__currentPage__}}" class="text-gray-500">
@@ -33,13 +33,13 @@ export default class NewsDetailView extends View {
   private store: NewsStore;
 
   constructor(containerId: string, store: NewsStore) {
-    super(containerId, template);  
+    super(containerId, template);
     this.store = store;
   }
 
   render = async (id: string): Promise<void> => {
     const api = new NewsDetailApi(id);
-    
+
     const { title, content, comments } = await api.getData();
 
     this.store.makeRead(Number(id));
@@ -52,7 +52,7 @@ export default class NewsDetailView extends View {
   }
 
   private makeComment(comments: NewsComment[]): string {
-    for(let i = 0; i < comments.length; i++) {
+    for (let i = 0; i < comments.length; i++) {
       const comment: NewsComment = comments[i];
 
       this.addHtml(`
@@ -64,12 +64,12 @@ export default class NewsDetailView extends View {
           <p class="text-gray-700">${comment.content}</p>
         </div>      
       `);
-  
+
       if (comment.comments.length > 0) {
         this.addHtml(this.makeComment(comment.comments));
       }
     }
-  
+
     return this.getHtml();
   }
 }

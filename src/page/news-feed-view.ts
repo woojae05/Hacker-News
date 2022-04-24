@@ -8,7 +8,7 @@ const template = `
     <div class="mx-auto px-4">
       <div class="flex justify-between items-center py-6">
         <div class="flex justify-start">
-          <h1 class="font-extrabold">Hacker News</h1>
+          <h1 class="font-extrabold">Woojae News</h1>
         </div>
         <div class="items-center justify-end">
           <a href="#/page/{{__prev_page__}}" id="prevBtn" class="text-gray-500">
