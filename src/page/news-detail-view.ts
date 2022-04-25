@@ -4,15 +4,15 @@ import { NewsComment, NewsStore } from '../types';
 
 const template = `
 <div class="bg-gray-600 min-h-screen pb-8">
-  <div class="bg-white text-xl">
-    <div class="mx-auto px-4">
+  <div class="bg-white text-xl sticky top-0"">
+    <div class="mx-auto px-4 ">
       <div class="flex justify-between items-center py-6">
         <div class="flex justify-start">
           <h1 class="font-extrabold">Woojae News</h1>
         </div>
         <div class="items-center justify-end">
           <a href="#/page/{{__currentPage__}}" class="text-gray-500">
-            <i class="fa fa-times"></i>
+            <i class="fa fa-times">Back</i>
           </a>
         </div>
       </div>
@@ -38,6 +38,11 @@ export default class NewsDetailView extends View {
   }
 
   render = async (id: string): Promise<void> => {
+    window.scroll({
+      top: 0,
+      left: 0,
+    });
+
     const api = new NewsDetailApi(id);
 
     const { title, content, comments } = await api.getData();
@@ -48,7 +53,7 @@ export default class NewsDetailView extends View {
     this.setTemplateData('content', content);
     this.setTemplateData('comments', this.makeComment(comments));
 
-    this.updateView();
+    this.updateView()
   }
 
   private makeComment(comments: NewsComment[]): string {

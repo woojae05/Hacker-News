@@ -2,19 +2,20 @@ import View from '../core/view';
 import { NewsFeedApi } from '../core/api';
 import { NewsStore } from '../types';
 
+
 const template = `
 <div class="bg-gray-600 min-h-screen">
-  <div class="bg-white text-xl">
+  <div class="bg-white text-xl sticky top-0"">
     <div class="mx-auto px-4">
       <div class="flex justify-between items-center py-6">
         <div class="flex justify-start">
           <h1 class="font-extrabold">Woojae News</h1>
         </div>
         <div class="items-center justify-end">
-          <a href="#/page/{{__prev_page__}}" id="prevBtn" class="text-gray-500">
+          <a href="#/page/{{__prev_page__}}" id="prevBtn" class="text-black-500">
             Previous
           </a>
-          <a href="#/page/{{__next_page__}}" id="nextBtn" class="text-gray-500 ml-4">
+          <a href="#/page/{{__next_page__}}" id="nextBtn" class="text-black-500 ml-4">
             Next
           </a>
         </div>
@@ -79,13 +80,21 @@ export default class NewsFeedView extends View {
 
   }
 
-  checkPage(currentPage: number) {
+  checkPage(currentPage: number,) {
     const prevBtn = document.getElementById("prevBtn");
     const nextBtn = document.getElementById("nextBtn");
+
     if (currentPage == 1) {
-      prevBtn ? prevBtn.style.cursor = "default" : "";
+      if (prevBtn) {
+        prevBtn.style.cursor = 'default';
+        prevBtn.className = 'text-gray-500';
+
+      }
     } else if (currentPage == 3) {
-      nextBtn ? nextBtn.style.cursor = "default" : "";
+      if (nextBtn) {
+        nextBtn.style.cursor = 'default';
+        nextBtn.className = 'text-gray-500 ml-4';
+      }
     }
   }
 }
