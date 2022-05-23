@@ -9,13 +9,14 @@
   "author": "정우재 <80890472+woojae05@users.noreply.github.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "parcel index.html",
-    "build": "parcel build index.html"
+    "build": "parcel index.html",
+    "start":"parcel index.html"
   },
   "devDependencies": {
     "parcel": "^2.5.0"
   },
   "dependencies": {
-    "netlify-cli": "^10.0.0"
+    "netlify-cli": "^10.0.0",
+    "yarn": "^1.22.18"
   }
 }
