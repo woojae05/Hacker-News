@@ -28,13 +28,16 @@ const template = `
 </div>
 `;
 
+const colors = ["red", "orange", "yellow", "green", "blue", "indigo", "purple"]
+
 export default class NewsFeedView extends View {
   private api: NewsFeedApi;
   private store: NewsStore;
+  private color: String;
 
   constructor(containerId: string, store: NewsStore) {
     super(containerId, template);
-
+    this.color = this.chooseColor;
     this.store = store;
     this.api = new NewsFeedApi();
   }
@@ -46,12 +49,11 @@ export default class NewsFeedView extends View {
     if (!this.store.hasFeeds) {
       this.store.setFeeds(await this.api.getData());
     }
-
     for (let i = (this.store.currentPage - 1) * 10; i < this.store.currentPage * 10; i++) {
       const { id, title, comments_count, user, points, time_ago, read } = this.store.getFeed(i);
 
       this.addHtml(`
-      <div class="p-6 ${read ? 'bg-red-500' : 'bg-white'} mt-6 rounded-lg shadow-md transition-colors duration-500 hover:bg-green-100">
+      <div class="p-6 ${read ? this.color : 'bg-white'} mt-6 rounded-lg shadow-md transition-colors duration-500 hover:bg-green-100">
       <div class="flex">
       <div class="flex-auto">
       <a href="#/show/${id}">${title}</a>  
@@ -78,6 +80,12 @@ export default class NewsFeedView extends View {
     this.updateView();
     this.checkPage(this.store.currentPage);
 
+  }
+
+  get chooseColor(): String {
+    let selectedColor = colors[Math.floor(Math.random() * colors.length)];
+
+    return `bg-${selectedColor}-600`;
   }
 
   checkPage(currentPage: number,) {
